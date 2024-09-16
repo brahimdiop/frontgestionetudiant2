@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         NAME = 'cdc_client_front'
-        imageName = 'brims15/frontgestionetudiant'
+        imageName = 'brims15/frontgestionetudiant2'
         //registryCredentials = "admin"
         // registry = "192.168.1.38:8081/"
         dockerImage = ''
@@ -59,24 +59,10 @@ pipeline {
          }
          }
 
-      stage('Trigger ManifestUpdate') {
-        steps {
-          build job: 'updateManifestFiles', parameters: [string(name: 'DOCKERTAG', value: TAG_SELECTOR)]
-        }
-
-      }
+      
 
 
     }
 
-    post {
-
-       changed {
-            emailext attachLog: true, body: '$DEFAULT_CONTENT', subject: '$DEFAULT_SUBJECT',  to: 'cheikh.sall@afrilins.net'
-       }
-        failure {
-            emailext attachLog: true, body: '$DEFAULT_CONTENT', subject: '$DEFAULT_SUBJECT',  to: 'cheikh.sall@afrilins.net'
-        }
-
-    }
+   
 }
